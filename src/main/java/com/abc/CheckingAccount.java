@@ -7,7 +7,7 @@ public class CheckingAccount extends AbstractAccount implements Account {
 	}
 
 	@Override
-	protected double calculateInterest(Double amount) {
+	protected Double calculateInterest(Double amount) {
 		return amount * Constants.CHECKING_ACCOUNT_INTEREST_RATE;
 	}
 	

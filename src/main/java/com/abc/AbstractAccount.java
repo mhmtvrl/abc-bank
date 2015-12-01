@@ -25,7 +25,7 @@ public abstract class AbstractAccount implements Account {
 	public void withdraw(Double amount){
 		Double sumTransactions = this.sumTransactions() - amount;
 		int toCompare = sumTransactions.compareTo(0.0);
-		if(toCompare == 0 || toCompare < 0){
+		if(toCompare < 0){
 			throw new IllegalArgumentException("Not enough balance");
 		}
 		if(amount.compareTo(0.0) < 0 || amount.compareTo(0.0) == 0){
@@ -35,19 +35,19 @@ public abstract class AbstractAccount implements Account {
 		}
 	}
 
-	public double interestEarned(){
-		double amount = sumTransactions();
+	public Double interestEarned(){
+		Double amount = sumTransactions();
 		return calculateInterest(amount);
 	}
 
-	public double sumTransactions(){
+	public Double sumTransactions(){
 		double amount = 0.0;
         for (Transaction t: transactions)
             amount += t.amount;
         return amount;
 	}
 	
-	protected abstract double calculateInterest(Double amount);
+	protected abstract Double calculateInterest(Double amount);
 	
 	@Override
 	public String toString() {		
