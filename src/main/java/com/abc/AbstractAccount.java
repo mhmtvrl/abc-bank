@@ -47,7 +47,7 @@ public abstract class AbstractAccount implements Account {
         return amount;
 	}
 	
-	protected abstract Double calculateInterest(Double amount);
+	public abstract Double calculateInterest(Double amount);
 	
 	@Override
 	public String toString() {		

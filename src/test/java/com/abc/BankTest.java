@@ -13,7 +13,6 @@ public class BankTest {
         Customer john = new Customer("John");
         john.openAccount(new CheckingAccount("1"));
         bank.addCustomer(john);
-        System.out.println(bank.customerSummary());
         assertEquals("Customer Summary\n - John (1 account)", bank.customerSummary());
     }
 
@@ -30,25 +29,46 @@ public class BankTest {
     }
 
     @Test
-    public void savings_account() {
+    public void savingsAccount() {
         Bank bank = new Bank();
-        Account checkingAccount = new SavingsAccount("1");
-        bank.addCustomer(new Customer("Bill").openAccount(checkingAccount));
+        Account savingsAccount = new SavingsAccount("1");
+        bank.addCustomer(new Customer("Bill").openAccount(savingsAccount));
 
-        checkingAccount.deposit(1500.0);
+        savingsAccount.deposit(1500.0);
 
         assertEquals(2.0, bank.totalInterestPaid(), DOUBLE_DELTA);
     }
 
     @Test
-    public void maxi_savings_account() {
+    public void maxiSavingsAccount() {
         Bank bank = new Bank();
-        Account checkingAccount = new MaxiSavingsAccounts("1");
-        bank.addCustomer(new Customer("Bill").openAccount(checkingAccount));
+        Account maxiSavingsAccounts = new MaxiSavingsAccounts("1");
+        bank.addCustomer(new Customer("Bill").openAccount(maxiSavingsAccounts));
 
-        checkingAccount.deposit(3000.0);
+        maxiSavingsAccounts.deposit(3000.0);
 
         assertEquals(170.0, bank.totalInterestPaid(), DOUBLE_DELTA);
+    }
+    
+    @Test
+    public void testAddCustomerWithOneCustomer(){
+    	 Bank bank = new Bank();
+         Account maxiSavingsAccounts = new MaxiSavingsAccounts("1");
+         bank.addCustomer(new Customer("Bill").openAccount(maxiSavingsAccounts));
+         
+         assertEquals(1, bank.totalInterestPaid(), bank.getNumberOfCustomers());
+    }
+    
+    @Test
+    public void testAddCustomerWithTwoCustomer(){
+    	 Bank bank = new Bank();
+         Account maxiSavingsAccounts = new MaxiSavingsAccounts("1");
+         bank.addCustomer(new Customer("Bill").openAccount(maxiSavingsAccounts));
+         
+         Account checkingAccount = new CheckingAccount("2");
+         bank.addCustomer(new Customer("Billy").openAccount(checkingAccount));
+         
+         assertEquals(2, bank.totalInterestPaid(), bank.getNumberOfCustomers());
     }
 
 }

@@ -1,5 +1,14 @@
 package com.abc;
 
-public class DateProviderTest {
+import org.junit.Test;
 
+import static org.junit.Assert.*;
+
+public class DateProviderTest {
+	
+	@Test
+	public void testSingleton() {
+		assertEquals(DateProvider.getInstance(), DateProvider.getInstance());
+	}
+	
 }

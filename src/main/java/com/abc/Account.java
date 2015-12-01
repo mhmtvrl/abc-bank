@@ -5,4 +5,5 @@ public interface Account {
 	public void withdraw(Double amount);
 	public Double interestEarned();
 	public Double sumTransactions();
+	public Double calculateInterest(Double amount);
 }

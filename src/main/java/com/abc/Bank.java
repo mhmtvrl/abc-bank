@@ -37,4 +37,8 @@ public class Bank {
             return "Error";
         }
     }
+
+	public int getNumberOfCustomers() {
+		return customers.size();
+	}
 }
