@@ -3,8 +3,6 @@ package com.abc;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Math.abs;
-
 public class Customer {
     private String name;
     private List<Account> accounts;
@@ -39,36 +37,49 @@ public class Customer {
         statement = "Statement for " + this.name + "\n";
         double total = 0.0;
         for (Account a : accounts) {
-            statement += "\n" + statementForAccount(a) + "\n";
+            statement += "\n" + a.toString() + "\n";
             total += a.sumTransactions();
         }
-        statement += "\nTotal In All Accounts " + toDollars(total);
+        statement += "\nTotal In All Accounts " + Util.toDollars(total);
         return statement;
     }
-
-    private String statementForAccount(Account a) {
-        String s = "";
-
-       //Translate to pretty account type
-        switch(a.getAccountType()){
-            case Account.CHECKING:
-                s += "Checking Account\n";
-                break;
-            case Account.SAVINGS:
-                s += "Savings Account\n";
-                break;
-            case Account.MAXI_SAVINGS:
-                s += "Maxi Savings Account\n";
-                break;
-        }
-
-        //Now total up all the transactions
-        double total = 0.0;
-        for (Transaction t : a.transactions) {
-            s += "  " + (t.amount < 0 ? "withdrawal" : "deposit") + " " + toDollars(t.amount) + "\n";
-            total += t.amount;
-        }
-        s += "Total " + toDollars(total);
-        return s;
+    
+    @Override
+    public String toString() {
+    	return "\n - " + this.getName() + " (" + Util.format(this.getNumberOfAccounts(), "account") + ")";
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((accounts == null) ? 0 : accounts.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		if (accounts == null) {
+			if (other.accounts != null)
+				return false;
+		} else if (!accounts.equals(other.accounts))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+    
+    
 }

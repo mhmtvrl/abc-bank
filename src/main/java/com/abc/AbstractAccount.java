@@ -15,18 +15,18 @@ public abstract class AbstractAccount implements Account {
 	}
 	
 	public void deposit(double amount){
-		this.addTransaction(amount);
-	}
-
-	public void withdraw(double amount){
-		this.addTransaction(-amount);
-	}
-	
-	private void addTransaction(double amount){
 		if(amount <= 0){
 			throw new IllegalArgumentException("Amount must be greater than zero");
 		} else {
 			transactions.add(new Transaction(amount));
+		}
+	}
+
+	public void withdraw(double amount){
+		if(amount <= 0){
+			throw new IllegalArgumentException("Amount must be greater than zero");
+		} else {
+			transactions.add(new Transaction(-amount));
 		}
 	}
 
