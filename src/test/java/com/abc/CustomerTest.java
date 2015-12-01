@@ -1,6 +1,5 @@
 package com.abc;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -77,6 +76,40 @@ public class CustomerTest {
         
         assertEquals("1", henry.findAccount("3").getAccountId());
 
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testTransferMoneyWithInvalidAccounts(){
+    	Account checkingAccount = new CheckingAccount("1");
+        Account savingsAccount = new SavingsAccount("2");
+
+        Customer henry = new Customer("Henry").openAccount(checkingAccount).openAccount(savingsAccount);
+        
+        henry.transferMoney("5", "6", 100.0);
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testTransferMoneyWithInvalidAccount(){
+    	Account checkingAccount = new CheckingAccount("1");
+        Account savingsAccount = new SavingsAccount("2");
+
+        Customer henry = new Customer("Henry").openAccount(checkingAccount).openAccount(savingsAccount);
+        
+        henry.transferMoney("1", "6", 100.0);
+    }
+    
+    @Test
+    public void testTransferMoney(){
+    	Account checkingAccount = new CheckingAccount("1");
+        Account savingsAccount = new SavingsAccount("2");
+        
+        savingsAccount.deposit(100.0);
+        checkingAccount.deposit(100.0);
+
+        Customer henry = new Customer("Henry").openAccount(checkingAccount).openAccount(savingsAccount);
+        henry.transferMoney(savingsAccount.getAccountId(), checkingAccount.getAccountId(), 50.0);
+        assertEquals(new Double(50.0), savingsAccount.sumTransactions());
+        assertEquals(new Double(150.0), checkingAccount.sumTransactions());
     }
     
 }

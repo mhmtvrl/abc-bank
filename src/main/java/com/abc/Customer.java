@@ -56,5 +56,17 @@ public class Customer {
     	}
     	return null;
     }
+    
+    public void transferMoney(String fromId, String toId, Double amount){
+    	Account fromAccount = this.findAccount(fromId);
+    	Account toAccount = this.findAccount((toId));
+    	
+    	if(fromAccount == null || toAccount == null){
+    		throw new NullPointerException("Account doesn't exists");
+    	}
+    	
+    	fromAccount.withdraw(amount);
+    	toAccount.deposit(amount);
+    }
 
 }
