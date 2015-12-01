@@ -2,28 +2,17 @@ package com.abc;
 
 public class MaxiSavingsAccounts extends AbstractAccount implements Account {
 
-	@Override
-	public void deposit(double amount) {
-		// TODO Auto-generated method stub
-		
+	public MaxiSavingsAccounts(String accountId) {
+		super(accountId);
 	}
 
 	@Override
-	public void withdraw(double amount) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public double interestEarned() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double sumTransactions() {
-		// TODO Auto-generated method stub
-		return 0;
+	protected double calculateInterest(double amount) {
+		if (amount <= 1000)
+            return amount * 0.02;
+        if (amount <= 2000)
+            return 20 + (amount-1000) * 0.05;
+        return 70 + (amount-2000) * 0.1;
 	}
 
 }
