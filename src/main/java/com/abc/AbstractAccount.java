@@ -70,6 +70,17 @@ public abstract class AbstractAccount implements Account {
 		return true;
 	}
 	
-	
+	@Override
+	public String toString() {		
+		String accountSummary = "";
+		
+		double total = 0.0;
+        for (Transaction t : this.transactions) {
+        	accountSummary += "  " + (t.amount < 0 ? "withdrawal" : "deposit") + " " + Util.toDollars(t.amount) + "\n";
+            total += t.amount;
+        }
+        accountSummary += "Total " + Util.toDollars(total);
+		return accountSummary;
+	}
 
 }

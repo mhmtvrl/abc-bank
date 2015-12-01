@@ -13,4 +13,9 @@ public class SavingsAccount extends AbstractAccount implements Account {
         else
             return 1 + (amount-1000) * 0.002;
 	}
+	
+	@Override
+	public String toString() {
+		return "Savings Account\n" + super.toString();
+	}
 }

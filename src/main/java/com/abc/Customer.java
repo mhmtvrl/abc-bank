@@ -36,7 +36,7 @@ public class Customer {
 
     public String getStatement() {
         String statement = null;
-        statement = "Statement for " + name + "\n";
+        statement = "Statement for " + this.name + "\n";
         double total = 0.0;
         for (Account a : accounts) {
             statement += "\n" + statementForAccount(a) + "\n";
@@ -70,9 +70,5 @@ public class Customer {
         }
         s += "Total " + toDollars(total);
         return s;
-    }
-
-    private String toDollars(double d){
-        return String.format("$%,.2f", abs(d));
     }
 }
