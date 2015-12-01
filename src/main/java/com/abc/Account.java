@@ -6,4 +6,5 @@ public interface Account {
 	public Double interestEarned();
 	public Double sumTransactions();
 	public Double calculateInterest(Double amount);
+	public String getAccountId();
 }

@@ -18,8 +18,7 @@ public class CustomerTest {
         checkingAccount.deposit(100.0);
         savingsAccount.deposit(4000.0);
         savingsAccount.withdraw(200.0);
-        
-        System.out.println(henry.getStatement());
+       
 
         assertEquals("Statement for Henry\n" +
                 "\n" +
@@ -49,11 +48,35 @@ public class CustomerTest {
         assertEquals(2, oscar.getNumberOfAccounts());
     }
 
-    @Ignore
+    @Test
     public void testThreeAcounts() {
         Customer oscar = new Customer("Oscar")
                 .openAccount(new SavingsAccount("1"));
         oscar.openAccount(new CheckingAccount("2"));
+        oscar.openAccount(new CheckingAccount("3"));
         assertEquals(3, oscar.getNumberOfAccounts());
     }
+    
+    @Test
+    public void testFindAccount(){
+    	Account checkingAccount = new CheckingAccount("1");
+        Account savingsAccount = new SavingsAccount("2");
+
+        Customer henry = new Customer("Henry").openAccount(checkingAccount).openAccount(savingsAccount);
+        
+        assertEquals("1", henry.findAccount("1").getAccountId());
+
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testFindAccountWithNonExistingAccount(){
+    	Account checkingAccount = new CheckingAccount("1");
+        Account savingsAccount = new SavingsAccount("2");
+
+        Customer henry = new Customer("Henry").openAccount(checkingAccount).openAccount(savingsAccount);
+        
+        assertEquals("1", henry.findAccount("3").getAccountId());
+
+    }
+    
 }

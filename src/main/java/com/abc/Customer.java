@@ -48,5 +48,13 @@ public class Customer {
     public String toString() {
     	return "\n - " + this.getName() + " (" + Util.format(this.getNumberOfAccounts(), "account") + ")";
     }
+    
+    public Account findAccount(String accoutId){
+    	for(int i = 0; i < accounts.size(); i++){
+    		if(accounts.get(i).getAccountId().equals(accoutId))
+    			return accounts.get(i);
+    	}
+    	return null;
+    }
 
 }
