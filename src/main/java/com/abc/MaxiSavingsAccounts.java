@@ -7,10 +7,12 @@ public class MaxiSavingsAccounts extends AbstractAccount implements Account {
 	}
 
 	@Override
-	protected double calculateInterest(double amount) {
-		if (amount <= 1000)
+	protected double calculateInterest(Double amount) {
+		int toCompare = amount.compareTo(1000.0);
+		if (toCompare < 0 || toCompare == 0)
             return amount * 0.02;
-        if (amount <= 2000)
+		toCompare = amount.compareTo(2000.0);
+        if (toCompare < 0 || toCompare == 0)
             return 20 + (amount-1000) * 0.05;
         return 70 + (amount-2000) * 0.1;
 	}

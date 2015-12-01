@@ -1,8 +1,8 @@
 package com.abc;
 
 public interface Account {
-	public void deposit(double amount);
-	public void withdraw(double amount);
+	public void deposit(Double amount);
+	public void withdraw(Double amount);
 	public double interestEarned();
 	public double sumTransactions();
 }

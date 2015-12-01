@@ -14,16 +14,21 @@ public abstract class AbstractAccount implements Account {
 		this.accountId = accountId;
 	}
 	
-	public void deposit(double amount){
-		if(amount <= 0){
+	public void deposit(Double amount){
+		if(amount.compareTo(0.0) < 0 || amount.compareTo(0.0) == 0){
 			throw new IllegalArgumentException("Amount must be greater than zero");
 		} else {
 			transactions.add(new Transaction(amount));
 		}
 	}
 
-	public void withdraw(double amount){
-		if(amount <= 0){
+	public void withdraw(Double amount){
+		Double sumTransactions = this.sumTransactions() - amount;
+		int toCompare = sumTransactions.compareTo(0.0);
+		if(toCompare == 0 || toCompare < 0){
+			throw new IllegalArgumentException("Not enough balance");
+		}
+		if(amount.compareTo(0.0) < 0 || amount.compareTo(0.0) == 0){
 			throw new IllegalArgumentException("Amount must be greater than zero");
 		} else {
 			transactions.add(new Transaction(-amount));
@@ -42,33 +47,7 @@ public abstract class AbstractAccount implements Account {
         return amount;
 	}
 	
-	protected abstract double calculateInterest(double amount);
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((accountId == null) ? 0 : accountId.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AbstractAccount other = (AbstractAccount) obj;
-		if (accountId == null) {
-			if (other.accountId != null)
-				return false;
-		} else if (!accountId.equals(other.accountId))
-			return false;
-		return true;
-	}
+	protected abstract double calculateInterest(Double amount);
 	
 	@Override
 	public String toString() {		
@@ -82,5 +61,11 @@ public abstract class AbstractAccount implements Account {
         accountSummary += "Total " + Util.toDollars(total);
 		return accountSummary;
 	}
+
+	public String getAccountId() {
+		return accountId;
+	}
+	
+	
 
 }

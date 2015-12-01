@@ -7,8 +7,9 @@ public class SavingsAccount extends AbstractAccount implements Account {
 	}
 
 	@Override
-	protected double calculateInterest(double amount) {
-		if (amount <= 1000)
+	protected double calculateInterest(Double amount) {
+		int toCompare = amount.compareTo(1000.0);
+		if (toCompare < 0 || toCompare == 0)
             return amount * 0.001;
         else
             return 1 + (amount-1000) * 0.002;
